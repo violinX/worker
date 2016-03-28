@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="app_name">Worker</string>
+    <string name="action_settings">Settings</string>
+    <!--备注：此处键值对都是应用于登陆界面信息-->
+    <!--登陆界面标题-->
+    <string name="title">威高医疗商业集团工时系统</string>
+    <!--登录填写用户名输入框提示-->
+    <string name="UserHint">请输入用户名</string>
+    <!--登录填写密码输入框提示-->
+    <string name="PasswordHint">请输入密码</string>
+    <!--登陆界面勾选记住密码自动登录-->
+    <string name="remenberUP">记住密码下次可自动登录</string>
+    <!--登录登陆按钮显示内容-->
+    <string name="start">登录</string>
+    tab页面底部显示名称
+    <string name="tab1"></string>
+    <string name="tab2"></string>
+    <string name="tab3"></string>
+    <string name="tab4"></string>
+
+
+    <!--===========================================================================================-->
+    <!--记录文件命名-->
+    <string name="login">login_</string>
+    <string name="title_activity_tab_page">TabPage</string>
+</resources>
