@@ -3,12 +3,24 @@ package com.example.administrator.worker;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class TabAFm extends Fragment{
-    
+    private static int TOTAL_COUNT = 5;
+
+    private LinearLayout viewPagerContainer;
+    private ViewPager viewPager;
+    private TextView tvTitle;
+    private int[] imageIDs;
+
+    private ImageView[] mImageViews;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
