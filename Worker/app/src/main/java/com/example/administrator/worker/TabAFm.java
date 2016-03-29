@@ -7,13 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created with IntelliJ IDEA.
- * Author: wangjie  email:tiantian.china.2@gmail.com
- * Date: 13-6-14
- * Time: 下午2:39
- */
 public class TabAFm extends Fragment{
+    
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
