@@ -21,7 +21,6 @@ public class TabPage extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_page);
-
         fragments.add(new TabAFm());
         fragments.add(new TabBFm());
         fragments.add(new TabCFm());

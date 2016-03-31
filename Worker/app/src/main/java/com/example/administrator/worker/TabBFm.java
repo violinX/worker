@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class TabBFm extends Fragment{
@@ -39,9 +37,9 @@ public class TabBFm extends Fragment{
                 // 获得绑定的FragmentActivity
                 TabPage activity = ((TabPage)getActivity());
                 // 获得TabAFm的控件
-                EditText editText = (EditText) activity.fragments.get(0).getView().findViewById(R.id.edit);
-
-                Toast.makeText(activity, activity.hello + editText.getText(), Toast.LENGTH_SHORT).show();
+//                EditText editText = (EditText) activity.fragments.get(0).getView().findViewById(R.id.edit);
+//
+//                Toast.makeText(activity, activity.hello + editText.getText(), Toast.LENGTH_SHORT).show();
             }
         });
     }
