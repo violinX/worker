@@ -25,9 +25,9 @@ public class TabPage extends AppCompatActivity{
         fragments.add(new TabBFm());
         fragments.add(new TabCFm());
         fragments.add(new TabDFm());
-
-
         rgs = (RadioGroup) findViewById(R.id.tabs_rg);
+
+
 
         FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments, R.id.tab_content, rgs);
         tabAdapter.setOnRgsExtraCheckedChangedListener(new FragmentTabAdapter.OnRgsExtraCheckedChangedListener() {

@@ -31,8 +31,8 @@
 
             <RadioGroup
                 android:id="@+id/tabs_rg"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="50sp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:paddingTop="0dp"
@@ -41,8 +41,8 @@
                 >
                 <RadioButton
                     android:id="@+id/tab_rb_a"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:button="@null"
                     android:text="@string/tab1"
                     android:textColor="#000000"
@@ -55,8 +55,8 @@
                     />
                 <RadioButton
                     android:id="@+id/tab_rb_b"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:button="@null"
                     android:text="@string/tab2"
                     android:textColor="#000000"
@@ -68,8 +68,8 @@
                     />
                 <RadioButton
                     android:id="@+id/tab_rb_c"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:button="@null"
                     android:text="@string/tab3"
                     android:textColor="#000000"
@@ -81,8 +81,8 @@
                     />
                 <RadioButton
                     android:id="@+id/tab_rb_d"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:button="@null"
                     android:text="@string/tab4"
                     android:textColor="#000000"
