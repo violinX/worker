@@ -43,7 +43,6 @@
                     android:id="@+id/tab_rb_a"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_tab_home"
                     android:button="@null"
                     android:text="@string/tab1"
                     android:textColor="#000000"
@@ -52,13 +51,12 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:checked="true"
-                    android:background="@drawable/selector_tab"
+                    android:background="@drawable/selector_tab_a"
                     />
                 <RadioButton
                     android:id="@+id/tab_rb_b"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/assortment_title"
                     android:button="@null"
                     android:text="@string/tab2"
                     android:textColor="#000000"
@@ -66,13 +64,12 @@
                     android:layout_weight="1.0"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:background="@drawable/selector_tab"
+                    android:background="@drawable/selector_tab_b"
                     />
                 <RadioButton
                     android:id="@+id/tab_rb_c"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_tab_store"
                     android:button="@null"
                     android:text="@string/tab3"
                     android:textColor="#000000"
@@ -80,13 +77,12 @@
                     android:layout_weight="1.0"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:background="@drawable/selector_tab"
+                    android:background="@drawable/selector_tab_c"
                     />
                 <RadioButton
                     android:id="@+id/tab_rb_d"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_others"
                     android:button="@null"
                     android:text="@string/tab4"
                     android:textColor="#000000"
@@ -94,7 +90,7 @@
                     android:layout_weight="1.0"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:background="@drawable/selector_tab"
+                    android:background="@drawable/selector_tab_d"
                     />
             </RadioGroup>
         </LinearLayout>

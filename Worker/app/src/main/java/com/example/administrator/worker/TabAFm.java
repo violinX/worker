@@ -18,26 +18,22 @@ import android.widget.LinearLayout;
 public class TabAFm extends Fragment {
 
     private int[] imageIds;
-    private LinearLayout main_ll_dots;
-    private ViewPager main_vp;
-
-    TabPage activity = ((TabPage)getActivity());
+    private LinearLayout main_dots;
+    private ViewPager image_vp;
 
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            main_vp.setCurrentItem(main_vp.getCurrentItem() + 1,true);
+            image_vp.setCurrentItem(image_vp.getCurrentItem() + 1,true);
             handler.sendEmptyMessageDelayed(0,5000);
         }
     };
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         System.out.println("AAAAAAAAAA____onAttach");
 
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +41,6 @@ public class TabAFm extends Fragment {
 
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         System.out.println("AAAAAAAAAA____onCreateView");
@@ -57,13 +52,11 @@ public class TabAFm extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public void onStart() {
         super.onStart();
         System.out.println("AAAAAAAAAA____onStart");
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -75,55 +68,41 @@ public class TabAFm extends Fragment {
         super.onPause();
         System.out.println("AAAAAAAAAA____onPause");
     }
-
     @Override
     public void onStop() {
         super.onStop();
         System.out.println("AAAAAAAAAA____onStop");
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         System.out.println("AAAAAAAAAA____onDestroyView");
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         System.out.println("AAAAAAAAAA____onDestroy");
         handler.removeCallbacksAndMessages(null);
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
         System.out.println("AAAAAAAAAA____onDetach");
     }
-
     public  void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imageIds = new int[]{R.drawable.c1 , R.drawable.c2, R.drawable.c3};
-        main_ll_dots = (LinearLayout) view.findViewById(R.id.main_ll_dots);
-        System.out.println("调用到这里");
-
+        imageIds = new int[]{R.drawable.c1 , R.drawable.c2, R.drawable.c3, R.drawable.c4, R.drawable.c5, R.drawable.c6};
+        main_dots = (LinearLayout) view.findViewById(R.id.main_dots);
         initDot();
-
-        main_vp = ((ViewPager) view.findViewById(R.id.main_vp));
-
-        main_vp.setAdapter(new MyPagerAdapter());
-
-        main_vp.setCurrentItem(imageIds.length * 10000);
-
+        image_vp = ((ViewPager) view.findViewById(R.id.image_vp));
+        image_vp.setAdapter(new MyPagerAdapter());
+        image_vp.setCurrentItem(imageIds.length * 10000);
         updateDescAndDot();
-
         handler.sendEmptyMessageDelayed(0, 5000);
-
-        main_vp.setOnTouchListener(new View.OnTouchListener() {
+        image_vp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 int action = event.getAction();
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
@@ -139,20 +118,16 @@ public class TabAFm extends Fragment {
                 return false;
             }
         });
-
-        main_vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        image_vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
-
             @Override
             public void onPageSelected(int position) {
                 updateDescAndDot();
             }
-
             @Override
             public void onPageScrollStateChanged(int position) {
-
             }
         });
     }
@@ -167,34 +142,29 @@ public class TabAFm extends Fragment {
             params.leftMargin = (i == 0 ? 0 : 20);//给除了第一个点之外的点都加上marginLeft
             view.setLayoutParams(params);//设置宽高
             view.setBackgroundResource(R.drawable.selector_dot);//设置背景图片
-            main_ll_dots.addView(view);
+            main_dots.addView(view);
         }
     }
-
     /**
      * 根据当前page来显示不同的文字和点
      */
     private void updateDescAndDot() {
-        int currentPage = main_vp.getCurrentItem() % imageIds.length;
-        // tv_desc.setText(list.get(currentPage).getDesc());
+        int currentPage = image_vp.getCurrentItem() % imageIds.length;
         //更新点
         //遍历所有的点，当点的位置和currentPage相当的时候，则设置为可用，否则是禁用
-        for (int i = 0; i < main_ll_dots.getChildCount(); i++) {
-            main_ll_dots.getChildAt(i).setEnabled(i == currentPage);
+        for (int i = 0; i < main_dots.getChildCount(); i++) {
+            main_dots.getChildAt(i).setEnabled(i == currentPage);
         }
     }
-
     private class MyPagerAdapter extends PagerAdapter {
         @Override
         public int getCount() {
             return Integer.MAX_VALUE;
         }
-
         @Override
         public boolean isViewFromObject(View view, Object o) {
             return view == o;
         }
-
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             Log.e("current position =====", position + "");
@@ -209,5 +179,4 @@ public class TabAFm extends Fragment {
             container.removeView((View) object);
         }
     }
-
 }

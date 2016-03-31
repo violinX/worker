@@ -34,9 +34,7 @@ public class FragmentTabAdapter implements RadioGroup.OnCheckedChangeListener {
                 Fragment fragment = fragments.get(i);
                 FragmentTransaction ft = obtainFragmentTransaction(i);
                 getCurrentFragment().onPause(); // 暂停当前tab
-//                getCurrentFragment().onStop(); // 暂停当前tab
                 if(fragment.isAdded()){
-//                    fragment.onStart(); // 启动目标tab的onStart()
                     fragment.onResume(); // 启动目标tab的onResume()
                 }else{
                     ft.add(fragmentContentId, fragment);
