@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.example.administrator.worker.alei.untils.HttpURLConnectionUntils;
 import com.example.administrator.worker.alei.untils.getAESstring;
+import com.example.administrator.worker.jsonuser.until.userlogin;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -20,6 +22,7 @@ import java.io.StringReader;
 public class Login extends AppCompatActivity {
 
     private String URL = "http://221.2.165.50:814/AjaxBase.ashx?callback=?&sMode=LOGIN&sKey=?&sExec=?";
+    private String STR="{\"result\": \"登录成功！\",\"status\":\"1\",\"reason\": \"登录成功！\",\"data\": {\"LOGIN\":[{\"skey\": \"8a918c5e-67e4-4cae-9782-9f4db0bdaa76\",\"userid\": \"00058602\",\"ismanager\": \"N\",\"username\":\"王阿磊\",\"manager\":\"冯元华\",\"grpname\":\"讯通信息科技公司\",\"usergh\":\"00058602\",\"grpid\":\"4\",\"usertype\":\"研发工程师\",\"dept\":\"010102\",\"deptname\":\"产品研发部\",\"str1\":\"\"}]}}";
     private EditText editUser;
     private EditText editPassword;
     private CheckBox cbxRemember;
@@ -114,6 +117,9 @@ public class Login extends AppCompatActivity {
         //region 动作：登录的主要操作
         String url=URL+"&var1="+editUser.getText().toString()+"&var2="+editPassword.getText().toString();
         System.out.println("URL拼写完成:" + url);
+        Gson gson = new Gson();
+        userlogin user =gson.fromJson(STR,userlogin.class);
+        System.out.println(user.getReason()+"我最帅");
         HttpURLConnectionUntils.doGetAsyn(url, new HttpURLConnectionUntils.CallBack() {
             @Override
             public void onRequestComplete(String result) {
