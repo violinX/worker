@@ -4,20 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.administrator.worker.alei.untils.HttpURLConnectionUntils;
 import com.example.administrator.worker.alei.untils.getAESstring;
 import com.example.administrator.worker.jsonuser.until.userlogin;
 import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.io.StringReader;
 
 public class Login extends AppCompatActivity {
 
@@ -117,14 +115,94 @@ public class Login extends AppCompatActivity {
         //region 动作：登录的主要操作
         String url=URL+"&var1="+editUser.getText().toString()+"&var2="+editPassword.getText().toString();
         System.out.println("URL拼写完成:" + url);
-        Gson gson = new Gson();
-        userlogin user =gson.fromJson(STR,userlogin.class);
-        System.out.println(user.getReason()+"我最帅");
+
         HttpURLConnectionUntils.doGetAsyn(url, new HttpURLConnectionUntils.CallBack() {
             @Override
             public void onRequestComplete(String result) {
                 System.out.println("json回调成功" + result);
-                JsonReader reader = new JsonReader(new StringReader(result));
+                Gson gson = new Gson();
+                userlogin user =gson.fromJson(result,userlogin.class);
+                if(user.getStatus()==1)
+                {
+                    System.out.println("登陆成功");
+                    //region 动作：密码记录到本地，若加密失败记录危险性密码。（含记录有效自检，已注释！）
+                    if (cbxRemember.isChecked()) {
+                        SharedPreferences cmt = Login.this.getSharedPreferences("AutoLogin", Context.MODE_APPEND);
+                        SharedPreferences.Editor editor = cmt.edit();
+                        String userx;
+                        String pwdx;
+                        Boolean success;
+                        try {
+                            userx = editUser.getText().toString();
+                            pwdx = getAESstring.encrypt("19910418", editPassword.getText().toString());
+                            success = true;
+
+                        } catch (Exception ex) {
+                            userx = editUser.getText().toString();
+                            pwdx = editPassword.getText().toString();
+                            success = false;
+                            System.out.println("本地用户名密码存储异常，执行记录了带有危险的用户名密码。");
+                        }
+                        editor.putString("logining", editUser.getText().toString());
+                        editor.putString("user", userx);
+                        editor.putString("pwd", pwdx);
+                        editor.putBoolean("auto", cbxRemember.isChecked());
+                        editor.putBoolean("success", success);
+                        editor.commit();
+                        System.out.println("本地数据存储完毕，自测验证有效性");
+                        //region 动作：程序员本地记录数据自检
+                        try {
+                            if (cmt.getBoolean("success", false)) {
+                                System.out.println("用户名：" + cmt.getString("user", null));
+                                System.out.println("密码：" + getAESstring.decrypt("19910418", cmt.getString("pwd", null)));
+                                System.out.println(cmt.getAll());
+                            } else {
+                                System.out.println("前一次本地用户信息记录存在异常！");
+                                System.out.println(cmt.getAll());
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("本地用户信息记录存在异常！");
+                            System.out.println(cmt.getAll());
+                        }
+                        //endregion
+                        System.out.println("用户名密码保存完成");
+                    } else {
+                        SharedPreferences cmt = Login.this.getSharedPreferences("AutoLogin", Context.MODE_APPEND);
+                        SharedPreferences.Editor editor = cmt.edit();
+                        editor.putString("logining", editUser.getText().toString());
+                        editor.putString("user", "");
+                        editor.putString("pwd", "");
+                        editor.putBoolean("auto", false);
+                        editor.putBoolean("success", false);
+                        editor.commit();
+                        //region 动作：程序员本地记录数据自检
+                        try {
+                            if (cmt.getBoolean("success", false)) {
+                                System.out.println("用户名：" + cmt.getString("user", null));
+                                System.out.println("密码：" + getAESstring.decrypt("19910418", cmt.getString("pwd", null)));
+                                System.out.println(cmt.getAll());
+                            } else {
+                                System.out.println("前一次本地用户信息记录存在异常！");
+                                System.out.println(cmt.getAll());
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("本地用户信息记录存在异常！");
+                            System.out.println(cmt.getAll());
+                        }
+                        //endregion
+                    }
+                    //endregion
+                    startActivity(new Intent(Login.this, TabPage.class));
+                }
+                else
+                {
+                    System.out.println("登陆失败");
+                    Looper.prepare();
+                    Toast.makeText(getApplicationContext(),"登录失败。",Toast.LENGTH_LONG).show();
+                    Looper.loop();
+                }
+
+                /*JsonReader reader = new JsonReader(new StringReader(result));
                 try {
                     reader.beginObject();
                     System.out.println("开始解析Json对象");
@@ -217,7 +295,7 @@ public class Login extends AppCompatActivity {
                     System.out.println("结束对象解析");
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         });
 
