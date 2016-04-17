@@ -34,4 +34,5 @@ public class userlogin {
     public void setData(data data) {
         this.data = data;
     }
+
 }

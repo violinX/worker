@@ -13,10 +13,15 @@
     <LinearLayout
         android:id="@+id/main_dots"
         android:gravity="center"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
     </LinearLayout>
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
 

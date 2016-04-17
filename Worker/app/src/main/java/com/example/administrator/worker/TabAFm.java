@@ -1,6 +1,10 @@
 package com.example.administrator.worker;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,14 +16,22 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class TabAFm extends Fragment {
 
     private int[] imageIds;
     private LinearLayout main_dots;
     private ViewPager image_vp;
+
+    private ListView mListView;
+    private ArrayList<ListItem> mList;
 
     Handler handler = new Handler(){
         @Override
@@ -89,6 +101,7 @@ public class TabAFm extends Fragment {
         super.onDetach();
         System.out.println("AAAAAAAAAA____onDetach");
     }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public  void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -100,6 +113,27 @@ public class TabAFm extends Fragment {
         image_vp.setCurrentItem(imageIds.length * 10000);
         updateDescAndDot();
         handler.sendEmptyMessageDelayed(0, 5000);
+        mListView = (ListView) view.findViewById(R.id.listView1);
+        // 获取Resources对象
+        Resources res = this.getResources();
+        mList = new ArrayList<TabAFm.ListItem>();
+        // 初始化data
+        ListItem item = new ListItem();
+        item.setImage(res.getDrawable(R.drawable.icon1));
+        item.setTitle("最新公告");
+        item.setMsg("json内容");
+        mList.add(item);
+
+        item = new ListItem();
+        item.setImage(res.getDrawable(R.drawable.icon2));
+        item.setTitle("待办事宜");
+        item.setMsg("json内容");
+        mList.add(item);
+        // 获取MainListAdapter对象
+        MainListViewAdapter adapter = new MainListViewAdapter();
+        // 将MainListAdapter对象传递给ListView视图
+        mListView.setAdapter(adapter);
+
         image_vp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -131,7 +165,6 @@ public class TabAFm extends Fragment {
             }
         });
     }
-
     /**
      * 动态添加点
      */
@@ -179,4 +212,101 @@ public class TabAFm extends Fragment {
             container.removeView((View) object);
         }
     }
+    class ListItem {
+        private Drawable image;
+        private String title;
+        private String msg;
+        public Drawable getImage() {
+            return image;
+        }
+        public void setImage(Drawable image) {
+            this.image = image;
+        }
+        public String getTitle() {
+            return title;
+        }
+        public void setTitle(String title) {
+            this.title = title;
+        }
+        public String getMsg() {
+            return msg;
+        }
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+    }
+
+    /**
+     * 定义ListView适配器MainListViewAdapter
+     */
+    class MainListViewAdapter extends BaseAdapter {
+        /**
+         * 返回item的个数
+         */
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return mList.size();
+        }
+        /**
+         * 返回item的内容
+         */
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return mList.get(position);
+        }
+        /**
+         * 返回item的id
+         */
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+        /**
+         * 返回item的视图
+         */
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ListItemView listItemView;
+
+            // 初始化item view
+            if (convertView == null) {
+                // 通过LayoutInflater将xml中定义的视图实例化到一个View中
+                convertView = LayoutInflater.from(getActivity()).inflate(
+                        R.layout.image_listview_1, null);
+                // 实例化一个封装类ListItemView，并实例化它
+                listItemView = new ListItemView();
+                listItemView.imageView = (ImageView) convertView
+                        .findViewById(R.id.listview1_image);
+                listItemView.textView = (TextView) convertView
+                        .findViewById(R.id.listview1_title);
+                listItemView.msg = (TextView) convertView
+                        .findViewById(R.id.listview1_msg);
+                // 将ListItemView对象传递给convertView
+                convertView.setTag(listItemView);
+            } else {
+                // 从converView中获取ListItemView对象
+                listItemView = (ListItemView) convertView.getTag();
+            }
+            // 获取到mList中指定索引位置的资源
+            Drawable img = mList.get(position).getImage();
+            String title = mList.get(position).getTitle();
+            String msg = mList.get(position).getMsg();
+
+            // 将资源传递给ListItemView的域对象
+            listItemView.imageView.setImageDrawable(img);
+            listItemView.textView.setText(title);
+            listItemView.textView.setText(msg);
+            // 返回convertView对象
+            return convertView;
+        }
+    }
+    class ListItemView {
+        ImageView imageView;
+        TextView textView;
+        TextView msg;
+    }
+
 }
