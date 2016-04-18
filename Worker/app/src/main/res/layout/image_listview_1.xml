@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--这个listview是一个图一个标题的样式-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
@@ -10,26 +10,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:maxHeight="72px"
-        android:maxWidth="72px"
-        android:paddingBottom="20px"
-        android:paddingRight="10px"
-        android:paddingTop="20px" />
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:maxHeight="90dp"
+        android:maxWidth="90dp"
+        android:paddingBottom="10px"
+        android:paddingRight="5px"
+        android:paddingTop="10px" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lis_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TextView
             android:id="@+id/listview1_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="10px" />
+            android:layout_alignParentTop="true"
+            android:padding="5px"
+            android:paddingTop="10px"
+            android:textSize="25dp"
+            />
         <TextView
             android:id="@+id/listview1_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="10px" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:padding="5px"
+            android:paddingBottom="10px"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="90dp"
+            android:maxWidth="90dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/access_icon"/>
+    </RelativeLayout>
 </LinearLayout>

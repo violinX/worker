@@ -73,12 +73,13 @@ public class FragmentTabAdapter implements RadioGroup.OnCheckedChangeListener {
      */
     private FragmentTransaction obtainFragmentTransaction(int index){
         FragmentTransaction ft = fragmentActivity.getSupportFragmentManager().beginTransaction();
-        // 设置切换动画
-        if(index > currentTab){
+        System.out.println("这里添加页面切换效果");
+        // 设置切换动画 有人说淘宝这么专业，都不会用切换效果，听人劝吃饱饭，我先注释掉切换效果吧！
+        /*if(index > currentTab){
             ft.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out);
         }else{
             ft.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_right_out);
-        }
+        }*/
         return ft;
     }
 

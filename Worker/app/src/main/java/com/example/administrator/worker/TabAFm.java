@@ -298,7 +298,7 @@ public class TabAFm extends Fragment {
             // 将资源传递给ListItemView的域对象
             listItemView.imageView.setImageDrawable(img);
             listItemView.textView.setText(title);
-            listItemView.textView.setText(msg);
+            listItemView.msg.setText(msg);
             // 返回convertView对象
             return convertView;
         }
